@@ -1,0 +1,12 @@
+{
+  "name": "lifting-datavisualization",
+  "version": "1.0.0",
+  "description": "Visualization of Open Powerlifting dataset",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Tyrone Saulon",
+  "license": "ISC"
+}

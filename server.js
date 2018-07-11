@@ -18,8 +18,8 @@ app.get("/", (req, res) => {
     //res.render(path.join(__dirname, "/views/visual.hbs"));
 
 
-    //res.send(data_service.test("Canada"));
-    res.send(data_service.testAll());
+    data_service.getCompetitors().then(data => res.send(data[Symbol.iterator]().next().value))
+                                                  .catch(data => console.log(data));
 });
 
 app.listen(HTTP_PORT, () => {

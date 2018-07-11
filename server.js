@@ -15,15 +15,13 @@ app.set("view engine", ".hbs");
 
 
 app.get("/", (req, res) => {
-    res.render(path.join(__dirname, "/views/visual.hbs"));
+    //res.render(path.join(__dirname, "/views/visual.hbs"));
+
+
+    //res.send(data_service.test("Canada"));
+    res.send(data_service.testAll());
 });
 
-data_service.Initialize().then(data => {
-
-    console.log(data);
-
-    app.listen(HTTP_PORT, () => {
-        console.log("Server started! listening on port " + HTTP_PORT);
-    });
-
-}).catch(data => console.err);
+app.listen(HTTP_PORT, () => {
+    console.log("Server started! listening on port " + HTTP_PORT);
+});

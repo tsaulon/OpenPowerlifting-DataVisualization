@@ -3,7 +3,7 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const Chart = require("chart.js");
-
+const data_service = require("./data_service.js");
 
 app.use("/public", express.static(path.join(__dirname, "/public")));
 app.use("/views", express.static(path.join(__dirname, "/views")));
@@ -16,8 +16,14 @@ app.set("view engine", ".hbs");
 
 app.get("/", (req, res) => {
     res.render(path.join(__dirname, "/views/visual.hbs"));
-})
+});
 
-app.listen(HTTP_PORT, () => {
-    console.log("Server started! listening on port " + HTTP_PORT);
-})
+data_service.Initialize().then(data => {
+
+    console.log(data);
+
+    app.listen(HTTP_PORT, () => {
+        console.log("Server started! listening on port " + HTTP_PORT);
+    });
+
+}).catch(data => console.err);

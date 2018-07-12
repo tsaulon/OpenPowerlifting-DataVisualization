@@ -69,7 +69,7 @@ Meets.hasMany(Competitors, {
     //  Currently grabs competitors depending on country.
 */
 
-module.exports.getCompetitors = filters => {
+module.exports.getCompetitors = country => {
 
     return new Promise((resolve, reject) => {
 
@@ -99,8 +99,8 @@ module.exports.getCompetitors = filters => {
                     competitors = new Set(data);
 
                     Promise.all(competitors).then(data => {
-                        console.log(getSizeExtracted);
-                        resolve(competitors);
+                        console.log(getSizeExtracted());
+                        resolve(getPlots());
                     }).catch(data => {
                         reject(data);
                     })
@@ -112,4 +112,43 @@ module.exports.getCompetitors = filters => {
 
 function getSizeExtracted() {
     return `Rows extracted: ${competitors.size}`;
+}
+
+//TODO: Implement Filter class to translate form submissions into DB queries
+class Filter{
+    add(key, value){
+        
+        //  start new array if key is new
+        if(!this.hasOwnProperty(key)){
+            this[key] = [];
+        }
+        this[key].push(value);
+    }
+}
+
+module.exports.test = () => {
+
+    let x = new Filter();
+
+    x.add("MeetCountry", "Canada");
+    x.add("MeetCountry", "USA");
+    console.log(x.MeetCountry);
+}
+
+function getPlots() {
+    
+    let counter = 0;
+
+    return Array.from(competitors).map(lifter => {
+        
+        let obj = {
+            x: counter++,
+            y: lifter.TotalKg
+        }
+
+        return obj;
+    }).filter(x => {
+        return x.y != 0;
+    });
+
 }

@@ -1,5 +1,133 @@
 <div class="hero is-white is-fullheight">
     <div class="hero-body">
-        <canvas id="myChart" width="400" height="400"></canvas>
+        <div class="columns">
+            <div class="column is-one-quarter">
+
+                <form method="post" action="filter">
+                    <div class="field">
+                        <label class="label">Exercises</label>
+                        <div class="control">
+                            <label class="radio">
+                                <input type="radio" name="Total" checked> Total
+                            </label>
+                            <br />
+                            <label class="radio">
+                                <input type="radio" name="Total"> Bench
+                            </label>
+                            <br />
+                            <label class="radio">
+                                <input type="radio" name="Total"> Squat
+                            </label>
+                            <br />
+                            <label class="radio">
+                                <input type="radio" name="Total"> Deadlift
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Country</label>
+                        <div class="control">
+                            <div class="select">
+                                <select>
+                                    <option>All Countries</option>
+                                    <!-- TODO: Generate Countries here -->
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Gender</label>
+                        <div class="control">
+                            <div class="select">
+                                <select>
+                                    <option>M</option>
+                                    <option>F</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Age</label>
+                        <div class="control">
+                            <div class="select">
+                                <select>
+                                    <option>16</option>
+                                    <!-- TODO: Generate Ages here -->
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Weight Class</label>
+                        <div class="control">
+                            <div class="select">
+                                <select>
+                                    <option>60kg</option>
+                                    <!-- TODO: Generate Weight Classes here -->
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Equipment</label>
+                        <div class="control">
+                            <div class="select">
+                                <select>
+                                    <option>Wrist Wraps</option>
+                                    <!-- TODO: Generate Equipment here -->
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <div class="column is-three-quarters">
+                <canvas id="myChart" style="width: 100vw; height: 100vh"></canvas>
+            </div>
+        </div>
+        <script src="/chartjs/Chart.js"></script>
+        <script>
+
+            window.onload = loadGraph();
+
+            function loadGraph() {
+
+
+                let ctx = document.getElementById("myChart");
+
+                var scatterChart = new Chart(ctx, {
+                    type: 'scatter',
+                    data: {
+                        datasets: [{
+                            label: 'Scatter Dataset',
+                            data: [
+                                {{#each points}}
+                                    {
+                                        x: {{this.x}},
+                                        y: {{this.y}}
+                                    },
+                                {{/each}}
+                            ]
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            xAxes: [{
+                                type: 'linear',
+                                position: 'bottom'
+                            }]
+                        }
+                    }
+                });
+
+            }
+
+        </script>
     </div>
 </div>
